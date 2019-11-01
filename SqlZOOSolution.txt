@@ -1,0 +1,69 @@
+
+-----------------------------------------
+SELECT basics
+-----------------------------------------
+1)show the population of Germany
+
+SELECT population 
+FROM world
+WHERE name = 'Germany';
+
+2)Show the name and the population for 'Sweden', 'Norway' and 'Denmark'.
+
+SELECT name, population 
+FROM world
+WHERE name IN ( 'Sweden', 'Norway' , 'Denmark');
+
+3) shows countries with an area of 250,000-300,000 sq. km. Modify it to show the country and the area for countries with an area between 200,000 and 250,000.
+
+SELECT name, area 
+FROM world
+WHERE area BETWEEN 200000 AND 250000;
+
+------------------------------------
+SELECT from WORLD Tutorial
+-------------------------------------
+1)SQL command to show the name, continent and population of all countries.
+
+SELECT name, continent, population 
+FROM world;
+
+2)Show the name for the countries that have a population of at least 200 million. 200 million is 200000000, there are eight zeros.
+
+SELECT name 
+FROM world
+WHERE population >=  200000000;
+
+3)Give the name and the per capita GDP for those countries with a population of at least 200 million.
+
+SELECT name , gdp/population
+FROM world 
+WHERE population >= 200000000;
+
+4) Show the name and population in millions for the countries of the continent 'South America'. Divide the population by 1000000 to get population in millions.
+
+SELECT name , population / 1000000
+FROM world
+WHERE continent = 'South America';
+
+5) Show the name and population for France, Germany, Italy
+Unfortunately, in SQLZoo is not possible to solve this exercise using the IN () function
+
+SELECT name, population
+FROM world
+WHERE name = 'France' OR name = 'Germany' OR name = 'Italy';
+
+
+6)Show the countries which have a name that includes the word 'United'
+SELECT name
+FROM world
+WHERE name LIKE '%United%';
+
+7)Two ways to be big: A country is big if it has an area of more than 3 million sq km or it has a population of more than 250 million.
+
+
+8)Exclusive OR (XOR). Show the countries that are big by area or big by population but not both. Show name, population and area.
+
+
+
+
