@@ -207,7 +207,7 @@ WHERE population IN (SELECT population
 
 ----------------------------
 SUM and COUNT 
-
+--------------------------
  
 
 1)	Show the total population of the world.
@@ -311,7 +311,7 @@ WHERE ((team1='GER' OR team2='GER') AND teamid != 'GER')
 
 /* 12)For every match where 'GER' scored, show matchid, match date and the number of goals scored by 'GER'
 
-/* 13)List every match with the goals scored by each team as shown. This will use "CASE WHEN" which has not been explained in any previous exercises.
+/* 13)List every match with the goals scored by each team as shown. This will use "CASE WHEN" which has not been explained in any previous exercises. */
 
 --------------------------
 More join
@@ -347,12 +347,21 @@ More join
 14)
 
 15)
+--------------------------
 
 USING NULL
+--------------------------
 
-1)
+1)List the teachers who have NULL for their department.
 
-2)
+SELECT name
+FROM teacher
+WHERE dept IS NULL;
+
+2)Note the INNER JOIN misses the teachers with no department and the departments with no teacher.
+SELECT teacher.name, dept.name
+ FROM teacher JOIN dept
+           ON (teacher.dept=dept.id);
 
 3)
 
