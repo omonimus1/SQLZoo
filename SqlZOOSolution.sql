@@ -4,19 +4,19 @@ SELECT basics
 -----------------------------------------
 1)show the population of Germany
 
-SELECT population 
+SELECT population
 FROM world
 WHERE name = 'Germany';
 
 2)Show the name and the population for 'Sweden', 'Norway' and 'Denmark'.
 
-SELECT name, population 
+SELECT name, population
 FROM world
 WHERE name IN ( 'Sweden', 'Norway' , 'Denmark');
 
 3) shows countries with an area of 250,000-300,000 sq. km. Modify it to show the country and the area for countries with an area between 200,000 and 250,000.
 
-SELECT name, area 
+SELECT name, area
 FROM world
 WHERE area BETWEEN 200000 AND 250000;
 
@@ -25,19 +25,19 @@ SELECT from WORLD Tutorial
 -------------------------------------
 1)SQL command to show the name, continent and population of all countries.
 
-SELECT name, continent, population 
+SELECT name, continent, population
 FROM world;
 
 2)Show the name for the countries that have a population of at least 200 million. 200 million is 200000000, there are eight zeros.
 
-SELECT name 
+SELECT name
 FROM world
 WHERE population >=  200000000;
 
 3)Give the name and the per capita GDP for those countries with a population of at least 200 million.
 
 SELECT name , gdp/population
-FROM world 
+FROM world
 WHERE population >= 200000000;
 
 4) Show the name and population in millions for the countries of the continent 'South America'. Divide the population by 1000000 to get population in millions.
@@ -101,7 +101,7 @@ WHERE subject = 'peace' AND yr>=2000;
 5)Show all details (yr, subject, winner) of the Literature prize winners for 1980 to 1989 inclusive.
 
 SELECT *
-FROM nobel 
+FROM nobel
 WHERE subject = 'Literature' AND yr BETWEEN 1980 AND 1989;
 
 6)Show all details of the presidential winners:
@@ -112,7 +112,7 @@ Jimmy Carter
 Barack Obama
 
 
-SELECT * 
+SELECT *
 FROM nobel
  WHERE winner IN ('Theodore Roosevelt',
                   'Woodrow Wilson',
@@ -126,9 +126,9 @@ WHERE winner LIKE 'John%';
 
 8)Show the year, subject, and name of Physics winners for 1980 together with the Chemistry winners for 1984.
 
-SELECT * 
+SELECT *
 FROM nobel
-WHERE yr = 1980 AND subject = 'Physics' OR yr = 1984 AND subject = 'Chemistry'; 
+WHERE yr = 1980 AND subject = 'Physics' OR yr = 1984 AND subject = 'Chemistry';
 
 9)Show the year, subject, and name of winners for 1980 excluding Chemistry and Medicine
 
@@ -140,7 +140,7 @@ WHERE yr = 1980 AND subject NOT IN ('Chemistry' , 'Medicine');
 
 SELECT *
 FROM nobel
-WHERE subject = 'Medicine' AND yr < 1910 OR subject = 'Literature' AND yr >= 2004; 
+WHERE subject = 'Medicine' AND yr < 1910 OR subject = 'Literature' AND yr >= 2004;
 
 11)Find all details of the prize won by PETER GRÜNBERG
 
@@ -156,7 +156,7 @@ WHERE winner = 'PETER GRÜNBERG';
 
 SELECT winner, subject
   FROM nobel
- WHERE yr=1984 
+ WHERE yr=1984
  ORDER BY subject IN ('Physics' , 'Chemistry'), subject , winner;
 
 ----------------------------
@@ -164,7 +164,7 @@ SELECT IN SELECT
 ----------------------------
 
 1)List each country name where the population is larger than that of 'Russia'.
-SELECT name 
+SELECT name
 FROM world
 WHERE population >
      (SELECT population FROM world
@@ -172,23 +172,30 @@ WHERE population >
 
 
 2)Show the names of countries in Europe with a per capita GDP greater than 'United Kingdom'.
+SELECT name
+FROM world
+WHERE continent = 'Europe' AND gdp/population > ( SELECT gdp/population from world where name = 'United Kingdom');
 
-3)
+
+3)List the name and continent of countries in the continents containing either Argentina or Australia. Order by name of the country.
+SELECT name, continent
+FROM world
+WHERE continent IN ('Oceania','South America')
+ORDER BY name;
 
 4)Which country has a population that is more than Canada but less than Poland? Show the name and the population.
-
 SELECT name , population
 FROM world
-WHERE 
+WHERE
 population <  (SELECT population FROM world WHERE name = 'Poland') AND population >  (SELECT population FROM world WHERE name = 'Canada');
 
 5)Germany (population 80 million) has the largest population of the countries in Europe. Austria (population 8.5 million) has 11% of the population of Germany.
 
 Show the name and the population of each country in Europe. Show the population as a percentage of the population of Germany.
 
-SELECT 
-  name, 
-  CONCAT(ROUND((population*100)/(SELECT population 
+SELECT
+  name,
+  CONCAT(ROUND((population*100)/(SELECT population
                                  FROM world WHERE name='Germany'), 0), '%')
 FROM world
 WHERE population IN (SELECT population
@@ -206,9 +213,9 @@ WHERE population IN (SELECT population
 10)
 
 ----------------------------
-SUM and COUNT 
+SUM and COUNT
 --------------------------
- 
+
 
 1)	Show the total population of the world.
 
@@ -258,12 +265,12 @@ GROUP BY continent;
 
 JOIN
 
- 
+
 
 1) Modify it to show the matchid and player name for all goals scored by Germany. To identify German players, check for: teamid = 'GER'
 
-SELECT matchid , player 
-FROM goal 
+SELECT matchid , player
+FROM goal
  WHERE teamid = 'GER';
 
 /* 2)	Show id, stadium, team1, team2 for just game 1012*/
@@ -387,8 +394,8 @@ SELECT teacher.name, dept.name
 
 
 
-SELF JOIN 
- 
+SELF JOIN
+
 1)	 How many stops are in the database
 
 SELECT COUNT(DISTINCT stop)
@@ -397,7 +404,7 @@ FROM route;
 2) Find the id value for the stop 'Craiglockhart'
 
 SELECT id
-FROM  stops 
+FROM  stops
 WHERE name = 'Craiglockhart';
 
 3)
@@ -415,4 +422,3 @@ WHERE name = 'Craiglockhart';
 9)
 
 10)
-
