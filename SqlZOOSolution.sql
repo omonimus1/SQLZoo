@@ -65,11 +65,20 @@ WHERE name LIKE '%United%';
 8)Exclusive OR (XOR). Show the countries that are big by area or big by population but not both. Show name, population and area.
 
 
-9)
+9)Show the name and population in millions and the GDP in billions for the countries of the continent 'South America'. Use the ROUND function to show the values to two decimal places.
+For South America show population in millions and GDP in billions both to 2 decimal places.
 
-10)
+SELECT name , ROUND(population/1000000, 2 ) , ROUND(gdp/1000000000,2)
+FROM world
+WHERE continent = 'South America'; 
 
 
+
+10)Show per-capita GDP for the trillion dollar countries to the nearest $1000.
+
+SELECT name ,ROUND(gdp/population, -3) 
+FROM world
+WHERE gdp > 1000000000000; 
 
 ---------------------------------------
 SELECT from Nobel Tutorial
