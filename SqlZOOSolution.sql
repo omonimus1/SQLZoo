@@ -392,28 +392,41 @@ WHERE actor.name = 'Harrison Ford';
 USING NULL
 --------------------------
 
-1)List the teachers who have NULL for their department.
+1) List the teachers who have NULL for their department.
 
 SELECT name
 FROM teacher
 WHERE dept IS NULL;
 
-2)Note the INNER JOIN misses the teachers with no department and the departments with no teacher.
+2) Note the INNER JOIN misses the teachers with no department and the departments with no teacher.
 SELECT teacher.name, dept.name
  FROM teacher JOIN dept
            ON (teacher.dept=dept.id);
 
-3)
+3) Use a different JOIN so that all teachers are listed.
+SELECT teacher.name , dept.name
+from teacher
+LEFT JOIN dept on teacher.dept = dept.id;
 
-4)
+4) Use a different JOIN so that all departments are listed.
+SELECT teacher.name , dept.name
+from teacher
+RIGHT JOIN dept on teacher.dept = dept.id;
 
 5)
 
 6)
 
-7)
+7) Use COUNT to show the number of teachers and the number of mobile phones.
+SELECT COUNT(name) , COUNT(mobile)
+from teacher;
 
-8)
+8) Show each department and the number of staff. 
+
+SELECT  dept.name , COUNT(teacher.name) 
+from teacher
+RIGHT JOIN dept on teacher.dept = dept.id
+GROUP BY dept.name;
 
 9)
 
