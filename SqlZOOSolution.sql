@@ -70,15 +70,15 @@ For South America show population in millions and GDP in billions both to 2 deci
 
 SELECT name , ROUND(population/1000000, 2 ) , ROUND(gdp/1000000000,2)
 FROM world
-WHERE continent = 'South America'; 
+WHERE continent = 'South America';
 
 
 
 10)Show per-capita GDP for the trillion dollar countries to the nearest $1000.
 
-SELECT name ,ROUND(gdp/population, -3) 
+SELECT name ,ROUND(gdp/population, -3)
 FROM world
-WHERE gdp > 1000000000000; 
+WHERE gdp > 1000000000000;
 
 ---------------------------------------
 SELECT from Nobel Tutorial
@@ -211,8 +211,8 @@ WHERE population IN (SELECT population
                      FROM world
                      WHERE continent='Europe');
 
-6)Which countries have a GDP greater than every country in Europe? 
-SELECT NAME 
+6)Which countries have a GDP greater than every country in Europe?
+SELECT NAME
 FROM world
 WHERE gdp > (SELECT MAX(gdp) FROM world WHERE continent = 'Europe');
 
@@ -350,11 +350,11 @@ WHERE title = 'Citizen Kane';
 SELECT id , title , yr
 from movie
 WHERE title LIKE  '%Star Trek%'
-ORDER BY yr; 
+ORDER BY yr;
 
 4)What id number does the actor 'Glenn Close' have?
-SELECT id 
-from actor 
+SELECT id
+from actor
 WHERE name = 'Glenn Close';
 
 5)What is the id of the film 'Casablanca'
@@ -362,9 +362,21 @@ SELECT id
 FROM movie
 WHERE title =  'Casablanca';
 
-6)
+6)The cast list is the names of the actors who were in the movie. Use movieid=11768,
 
-7)
+SELECT actor.name
+FROM actor
+JOIN casting ON actor.id = casting.actorid
+JOIN movie on casting.movieid = movie.id
+WHERE casting.movieid = 11768;
+
+7)Obtain the cast list for the film 'Alien'
+
+SELECT actor.name
+FROM actor
+JOIN casting ON actor.id = casting.actorid
+JOIN movie on casting.movieid = movie.id
+WHERE movie.title = 'Alien';
 
 8)List the films in which 'Harrison Ford' has appeared
 
@@ -377,7 +389,13 @@ WHERE actor.name = 'Harrison Ford';
 
 10)
 
-11)
+11) Which were the busiest years for 'Rock Hudson', show the year and the number of movies he made each year for any year in which he made more than 2 movies.
+SELECT yr,COUNT(title) FROM
+  movie JOIN casting ON movie.id=movieid
+        JOIN actor   ON actorid=actor.id
+WHERE name='Rock Hudson'
+GROUP BY yr
+HAVING COUNT(title) > 2
 
 12)
 
@@ -391,24 +409,30 @@ WHERE actor.name = 'Harrison Ford';
 
 USING NULL
 --------------------------
-
+/*
 1) List the teachers who have NULL for their department.
-
+*/
 SELECT name
 FROM teacher
 WHERE dept IS NULL;
 
+/*
 2) Note the INNER JOIN misses the teachers with no department and the departments with no teacher.
+*/
 SELECT teacher.name, dept.name
  FROM teacher JOIN dept
            ON (teacher.dept=dept.id);
 
+/*
 3) Use a different JOIN so that all teachers are listed.
+*/
 SELECT teacher.name , dept.name
 from teacher
 LEFT JOIN dept on teacher.dept = dept.id;
 
+/*
 4) Use a different JOIN so that all departments are listed.
+*/
 SELECT teacher.name , dept.name
 from teacher
 RIGHT JOIN dept on teacher.dept = dept.id;
@@ -417,20 +441,40 @@ RIGHT JOIN dept on teacher.dept = dept.id;
 
 6)
 
+/*
 7) Use COUNT to show the number of teachers and the number of mobile phones.
+*/
 SELECT COUNT(name) , COUNT(mobile)
 from teacher;
 
-8) Show each department and the number of staff. 
-
-SELECT  dept.name , COUNT(teacher.name) 
+/*
+8) Show each department and the number of staff.
+*/
+SELECT  dept.name , COUNT(teacher.name)
 from teacher
 RIGHT JOIN dept on teacher.dept = dept.id
 GROUP BY dept.name;
 
-9)
+/*
+9) Use CASE to show the name of each teacher followed by 'Sci' if the teacher is
+   in dept 1 or 2 and 'Art' otherwise.
+*/
+SELECT teacher.name,
+CASE WHEN dept.id = 1 THEN 'Sci'
+     WHEN dept.id = 2 THEN 'Sci'
+     ELSE 'Art' END
+FROM teacher LEFT JOIN dept ON (teacher.dept=dept.id);
 
-10)
+/*
+ 10)Use CASE to show the name of each teacher followed by 'Sci' if the teacher
+ is in dept 1 or 2, show 'Art' if the teacher's dept is 3 and 'None' otherwise.
+*/
+SELECT teacher.name,
+CASE WHEN dept.id = 1 THEN 'Sci'
+     WHEN dept.id = 2 THEN 'Sci'
+     WHEN dept.id = 3 THEN 'Art'
+     ELSE 'None' END
+FROM teacher LEFT JOIN dept ON (teacher.dept=dept.id);
 
 
 
