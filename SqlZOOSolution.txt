@@ -1,0 +1,2 @@
+/*1) Use find to show the details of Germany */
+db.word.find({name: 'Germany'});
