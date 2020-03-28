@@ -227,7 +227,7 @@ WHERE gdp > (SELECT MAX(gdp) FROM world WHERE continent = 'Europe');
 
 7)
 
-8)
+ /*8)ist each continent and the name of the country that comes first alphabetically.   */
 
 9)
 
@@ -394,6 +394,7 @@ FROM movie
 JOIN casting ON movie.id = casting.movieid
 JOIN actor ON casting.actorid = actor.id
 WHERE actor.name = 'Harrison Ford';
+
 9)
 
 10)
